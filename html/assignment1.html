@@ -1,0 +1,244 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>assignment1</title><meta name="generator" content="MATLAB 8.6"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2016-01-25"><meta name="DC.source" content="assignment1.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><pre class="codeinput">import <span class="string">plotImages.*</span>;
+<span class="comment">% Import data</span>
+data = importdata(<span class="string">'DataA.mat'</span>);
+<span class="comment">% Take the mean with the omitnan</span>
+data(isnan(data)) = mean(data(1,:), <span class="string">'omitnan'</span>);
+[row,col] = find(isnan(data))
+
+<span class="comment">% Min-Max Normalization</span>
+
+<span class="comment">% minA = min(data(:,9));</span>
+<span class="comment">% maxA = max(data(:,9));</span>
+
+dataNorm = (data(:,9)-mean(data(:,9))/std(data(:,9)));
+figure
+bar (dataNorm);
+title(<span class="string">'Z-Score normalization for Feature 9'</span>);
+xlabel(<span class="string">'Time Series focused on feature 9'</span>);
+ylabel(<span class="string">'Normalized values for feature 9'</span>);
+
+dataNorm = (data(:,24)-mean(data(:,24))/std(data(:,24)));
+figure
+bar (dataNorm);
+title(<span class="string">'Z-Score normalization for Feature 24'</span>);
+xlabel(<span class="string">'Time Series focused on feature 24'</span>);
+ylabel(<span class="string">'Normalized values for feature 24'</span>);
+
+histogram(dataNorm);
+<span class="comment">% First plot the oroginal dataset</span>
+<span class="comment">% figure</span>
+<span class="comment">% plot(data);</span>
+<span class="comment">% title('Data values of DatasetA');</span>
+<span class="comment">% xlabel('Sensors');</span>
+<span class="comment">% ylabel('Values based on time step');</span>
+
+<span class="comment">% calculate Mode for every row including NaN</span>
+modeData = mode(data,2);
+
+<span class="comment">% figure</span>
+<span class="comment">% bar(modeData);</span>
+<span class="comment">% title('Mode values for DatasetA');</span>
+<span class="comment">% xlabel('Sensors');</span>
+<span class="comment">% ylabel('Mode represented for data captured of sensors');</span>
+
+<span class="comment">% take Mean omitting NaN</span>
+<span class="comment">% meanData = mean(data,'omitnan');</span>
+
+<span class="comment">% figure</span>
+<span class="comment">% plot(meanData,'*');</span>
+<span class="comment">% title('Mean values of every column omitting NaN value on DatasetA');</span>
+<span class="comment">% xlabel('Sensors');</span>
+<span class="comment">% ylabel('Mean represented for column vectors on DatasetA');</span>
+
+<span class="comment">% Replace NaN with Zero</span>
+<span class="comment">% dataZero = data;</span>
+<span class="comment">% dataZero(isnan(dataZero)) = 0;</span>
+
+<span class="comment">% figure</span>
+<span class="comment">% bar(dataZero);</span>
+<span class="comment">% title('Mean after replacing NaN with Zero');</span>
+<span class="comment">% xlabel('Sensor Features');</span>
+<span class="comment">% ylabel('Mean value for fixed NaN with zero');</span>
+<span class="comment">%</span>
+
+<span class="comment">% Replacing NaN in origianl Dataset with mean of every row</span>
+<span class="comment">% [row,col] = find(isnan(data))</span>
+<span class="comment">% data(nanA) = mean(data,2)</span>
+
+<span class="comment">% figure</span>
+<span class="comment">% plot(dataZero, 's');</span>
+<span class="comment">% title('Mean after replacing NaN with Mean');</span>
+<span class="comment">% xlabel('Sensor Features');</span>
+<span class="comment">% ylabel('Mean value for fixed NaN with Mean');</span>
+
+<span class="comment">%     medianA(1,i) = median(data,2);</span>
+
+
+<span class="comment">% for j=1:19000</span>
+<span class="comment">%     for k=1:81</span>
+<span class="comment">%         indeces(i) = find(isnan(data));</span>
+<span class="comment">%     end</span>
+<span class="comment">% end</span>
+</pre><pre class="codeoutput">
+row =
+
+   Empty matrix: 0-by-1
+
+
+col =
+
+   Empty matrix: 0-by-1
+
+</pre><img vspace="5" hspace="5" src="assignment1_01.png" style="width:560px;height:420px;" alt=""> <img vspace="5" hspace="5" src="assignment1_02.png" style="width:560px;height:420px;" alt=""> <p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2015b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+import plotImages.*;
+% Import data
+data = importdata('DataA.mat');
+% Take the mean with the omitnan
+data(isnan(data)) = mean(data(1,:), 'omitnan');
+[row,col] = find(isnan(data))
+
+% Min-Max Normalization
+
+% minA = min(data(:,9));
+% maxA = max(data(:,9));
+
+dataNorm = (data(:,9)-mean(data(:,9))/std(data(:,9)));
+figure
+bar (dataNorm);
+title('Z-Score normalization for Feature 9');
+xlabel('Time Series focused on feature 9');
+ylabel('Normalized values for feature 9');
+
+dataNorm = (data(:,24)-mean(data(:,24))/std(data(:,24)));
+figure
+bar (dataNorm);
+title('Z-Score normalization for Feature 24');
+xlabel('Time Series focused on feature 24');
+ylabel('Normalized values for feature 24');
+ 
+histogram(dataNorm);
+% First plot the oroginal dataset
+% figure
+% plot(data);
+% title('Data values of DatasetA');
+% xlabel('Sensors');
+% ylabel('Values based on time step');
+
+% calculate Mode for every row including NaN
+modeData = mode(data,2);
+
+% figure
+% bar(modeData);
+% title('Mode values for DatasetA');
+% xlabel('Sensors');
+% ylabel('Mode represented for data captured of sensors');
+
+% take Mean omitting NaN
+% meanData = mean(data,'omitnan');
+
+% figure
+% plot(meanData,'*');
+% title('Mean values of every column omitting NaN value on DatasetA');
+% xlabel('Sensors');
+% ylabel('Mean represented for column vectors on DatasetA');
+
+% Replace NaN with Zero
+% dataZero = data;
+% dataZero(isnan(dataZero)) = 0;
+
+% figure
+% bar(dataZero);
+% title('Mean after replacing NaN with Zero');
+% xlabel('Sensor Features');
+% ylabel('Mean value for fixed NaN with zero');
+% 
+
+% Replacing NaN in origianl Dataset with mean of every row
+% [row,col] = find(isnan(data))
+% data(nanA) = mean(data,2)
+
+% figure
+% plot(dataZero, 's');
+% title('Mean after replacing NaN with Mean');
+% xlabel('Sensor Features');
+% ylabel('Mean value for fixed NaN with Mean');
+
+%     medianA(1,i) = median(data,2);
+
+
+% for j=1:19000
+%     for k=1:81
+%         indeces(i) = find(isnan(data));
+%     end
+% end
+##### SOURCE END #####
+--></body></html>
