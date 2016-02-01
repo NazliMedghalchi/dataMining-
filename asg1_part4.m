@@ -19,6 +19,9 @@ for (i=1:size(dataC.fea,1))
 end
 figure
 plot(dataNorm);
+title('Nomralized DataC - iterative loops');
+xlabel('Samples of 21 Feature');
+ylabel('Normalized Values of Samples');
 
 d1_i = dataC.fea - min(dataC.fea,2);
 d2_j = max(dataC.fea,2) - min(dataC.fea,2);
