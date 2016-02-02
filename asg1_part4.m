@@ -12,6 +12,7 @@ end
 for i=1:21
     feaMax(i) = max(dataC.fea(:,i));
 end
+dataNorm = zeros(2100,21);
 for (i=1:size(dataC.fea,1))
     for(j=1:size(dataC.fea,2))
         dataNorm(i,j) = (dataC.fea(i,j) - min(feaMin(j)))./(feaMax(j) - feaMin(j));
@@ -40,14 +41,14 @@ xlabel('Samples of 21 Feature');
 ylabel('Normalized Values of Samples');
 
 %% Apply SFS startegy with square Euclidean distance
-    xt = randperm(2100, 8);
-    yt = randperm(2100, 8);
-    XTRAIN = dataC.fea(1:xt,:);
-    XTEST = dataC.fea(xt:end,:);
-    ytrain = dataC.gnd(1:yt,:);
-    ytest = dataC.gnd(yt:end,:);
-    dataTrain = funFunc(XTRAIN, ytrain, XTEST, ytest);
-    sfSearch = sequentialfs(@funFunc, Ndata, dataTrain);
+    xt = randperm(2100, 1050);
+    yt = randperm(2100, 1050);
+    feaTrain = dataC.fea(1:xt,:);
+    feaTest = dataC.fea(xt:end,:);
+    labelTrain = dataC.gnd(1:yt,:);
+    labelTest = dataC.gnd(yt:end,:);
+    fun = funFunc(feaTrain, labelTrain, feaTest, labelTest)
+    sfSearch = sequentialfs(fun, Ndata.fea, Ndata.gnd);
     sfSearch;
 %% Apply Naive Bayes Classifier realize a Wrapper based feature selection w/ SFS 
 predictClass = classify(XTEST, XTRAIN, ytrain);
