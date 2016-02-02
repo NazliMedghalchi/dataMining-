@@ -24,15 +24,15 @@ ylabel('Results of time-series');
 title('Data values of DatasetA after cleaning NaN - color separated features');
 
 % Smooth data within a window - Fix outliers
-dataS = filter((data,2),10,data);
+dataS = filter(median(data,2),10,data);
 figure
 plot(dataS);
 title('Smoothed after cleaning NaN DatasetA - color separated features');
 xlabel('Time Series');
 ylabel('Results of time-series');
-
+% 
 % figure
-% h1 = histogram (data);
+% h1 = histc (dataS,min(dataS):max(dataS));
 % title('Binned DataA into 9 bins');
 % xlabel('Sensors');
 % ylabel('Smooth datasetA');

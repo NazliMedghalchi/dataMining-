@@ -41,15 +41,18 @@ xlabel('Samples of 21 Feature');
 ylabel('Normalized Values of Samples');
 
 %% Apply SFS startegy with square Euclidean distance
-    xt = randperm(2100, 1050);
-    yt = randperm(2100, 1050);
-    feaTrain = dataC.fea(1:xt,:);
-    feaTest = dataC.fea(xt:end,:);
-    labelTrain = dataC.gnd(1:yt,:);
-    labelTest = dataC.gnd(yt:end,:);
-    fun = funFunc(feaTrain, labelTrain, feaTest, labelTest)
-    sfSearch = sequentialfs(fun, Ndata.fea, Ndata.gnd);
-    sfSearch;
+xt = randperm(2100, 1050);
+yt = randperm(2100, 1050);
+feaTrain = dataC.fea(xt,:);
+feaTest = dataC.fea(~xt,:);
+labelTrain = dataC.gnd(yt,:);
+labelTest = dataC.gnd(~yt,:);
+fun = funFunc(feaTrain, labelTrain, feaTest, labelTest);
+% fun = @(feaTrain, labelTrain, feaTest, labelTest)...
+% (sum(~strcmp(labelTrain,classify(feaTest,featrain,labelTrain,'euclidean'))));
+fun
+sfSearch = sequentialfs(fun, Ndata.fea, Ndata.gnd);
+    
 %% Apply Naive Bayes Classifier realize a Wrapper based feature selection w/ SFS 
 predictClass = classify(XTEST, XTRAIN, ytrain);
 for i=1:21
@@ -58,5 +61,7 @@ for i=1:21
         NBmodel.ClassLevels;
         NBmodel.Params;
 end
+figure
+h = histogram(NBmodel);
 
-  %%
+%% Naive Bayes as Objective function and Sequential Backward Selection (SBS)

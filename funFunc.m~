@@ -1,16 +1,26 @@
-function [selectedFea] = funFunc(XTRAIN, ytrain, XTEST, ytest)
+function [selectedFea] = funFunc(feaTRAIN, gndtrain, feaTEST, gndtest)
     k = 0;
-    D = 0;
-    for i=1:21 
-        if (k <= 8)
-            dX = (pdist(XTRAIN).^2);
-            dY = (pdist(ytrain).^2)
-            candidate = max(dX);
-            k = k +1; 
-            D = D + candidate;
-        end
-        
+    D = [];
+    for (j=1:21)
+        distance2 = (pdist2(feaTRAIN(:,j), gndtrain, 'euclidean')); 
+        D2 = sort(distance2,'descend');
     end
-    dY = squareform((pdist(ytrain)));
-    selectedFea = 
+    for (i=1:8)
+        selectedFea = D2(i);
+    end
+%     while (k <= 8)
+%         for i=1:21
+%             D = feaTrain(:,i);
+%             dX = sort(pdist(feaTRAIN(:,i)).^2, 'descend');
+%             dY = (pdist(gndtrain(:,1)).^2);
+%             
+%             D = dX;
+%             if (max(dX) > candidate)
+%                 D  = [D max(dX)];
+%                 k = k +1; 
+%             end   
+%         end
+%     end
+%     dY = squareform((pdist(gndtrain)));
+%     selectedFea = sum (D);
 end
